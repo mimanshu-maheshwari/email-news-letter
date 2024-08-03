@@ -6,20 +6,26 @@
 // You can inspect what code gets generated using 
 // `cargo expand --test health_check` (<- name of the test file)
 
-fn spawn_app() {
-    let server = enl::run().expect("Failed to bind address");
+use std::net::TcpListener;
+
+fn spawn_app() -> String {
+    let addr = "127.0.0.1:0";
+    let listener = TcpListener::bind(addr).expect("Failed to bind random port");
+    let port = listener.local_addr().unwrap().port();
+    let server = enl::run(listener).expect("Failed to bind address");
     let _ = tokio::spawn(server);
+    format!("http://127.0.0.1:{}", port)
 }
 
 #[tokio::test]
 async fn health_check_works() {
     // Arrange
-    spawn_app();
+    let address = spawn_app();
     // we need to bring in `reqwest`
     // to perform HTTP requests against app 
     let client = reqwest::Client::new();
     let response = client
-        .get("http://127.0.0.1:8000/health_check")
+        .get(&format!("{}/health_check", address))
         .send()
         .await
         .expect("Failed to execute request.");
