@@ -1,0 +1,23 @@
+use actix_web::{dev::Server, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
+
+// async fn greet(req: HttpRequest) -> impl Responder {
+//     let name = req.match_info().get("name").unwrap_or("World");
+//     format!("Hello {}!\n", &name)
+// }
+
+async fn health_check(_req: HttpRequest) -> impl Responder {
+    HttpResponse::Ok()
+}
+
+pub fn run() -> Result<Server, std::io::Error> {
+    let addr = "127.0.0.1:8000";
+    let server = HttpServer::new(|| {
+        App::new()
+            // .route("/", web::get().to(greet))
+            // .route("/{name}", web::get().to(greet))
+            .route("/health_check", web::get().to(health_check))
+    })
+    .bind(addr)?
+    .run();
+    Ok(server)
+}
