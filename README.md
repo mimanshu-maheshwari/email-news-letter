@@ -110,3 +110,6 @@ We are iterating on product features, not engineerng quality: the code produced 
 	- [website](https://actix.rs/)
 	- [documentation](https://docs.rs/actix-web/4.0.1/actix_web/index.html)
 	- [examples](https://github.com/actix/examples)
+
+
+### Table driven test | Parameterized test
