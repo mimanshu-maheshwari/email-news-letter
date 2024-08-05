@@ -3,6 +3,9 @@
 - Email news-letter in rust
 - "ZERO TO PRODUCTION IN RUST" book study project.
 
+---
+## 56
+
 ## Project Setup:
 
 - As the default linker is a little slow use the lld linker:
