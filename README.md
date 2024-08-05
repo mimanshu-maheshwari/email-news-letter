@@ -96,20 +96,31 @@
   - segment subscribers in multiple audiences;
   - track opening and click rates.
 
+### User Story 1:
 
-### User Story 1: 
 > As a blog visitor,
 > I want to subscribe to the newsletter,
 > So that I can receive email updates when new content is published on the blog;
-We will work in iterations: each iterations takes a fixed amount of time and gives us a slightly better version of the product, improving the experience of our users. 
-We are iterating on product features, not engineerng quality: the code produced in each iteration will be tested and properly documented even if it only delivers a tiny, fully functional feature.
+
+- We will work in iterations: each iterations takes a fixed amount of time and gives us a slightly better version of the product, improving the experience of our users.
+- We are iterating on product features, not engineerng quality: the code produced in each iteration will be tested and properly documented even if it only delivers a tiny, fully functional feature.
 
 #### Choose Web Framework:
-* [Choosing a Rust web framework, 2020 edition](https://www.lpalmieri.com/posts/2020-07-04-choosing-a-rust-web-framework-2020-edition/)
-* Using actix-web: 
-	- [website](https://actix.rs/)
-	- [documentation](https://docs.rs/actix-web/4.0.1/actix_web/index.html)
-	- [examples](https://github.com/actix/examples)
 
+- [Choosing a Rust web framework, 2020 edition](https://www.lpalmieri.com/posts/2020-07-04-choosing-a-rust-web-framework-2020-edition/)
+- Using actix-web:
+  - [website](https://actix.rs/)
+  - [documentation](https://docs.rs/actix-web/4.0.1/actix_web/index.html)
+  - [examples](https://github.com/actix/examples)
 
 ### Table driven test | Parameterized test
+
+### Database: 
+* PostgreSQL: postgres | postgres
+
+---
+
+## References:
+
+- https://trstringer.com/postgresql-neovim
+- https://github.com/guysherman/pg.nvim

@@ -6,7 +6,7 @@
 // You can inspect what code gets generated using 
 // `cargo expand --test health_check` (<- name of the test file)
 
-use std::{fmt::format, net::TcpListener};
+use std::net::TcpListener;
 
 fn spawn_app() -> String {
     let addr = "127.0.0.1:0";
