@@ -70,7 +70,7 @@ done
 
 docker ps -q -f name=$IMAGE_NAME 
 
-export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/@{DB_NAME}
+export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}
 sqlx database create
 
 CREATE_SUBSCRIPTIONS_TABLE="create_subscriptions_table"
