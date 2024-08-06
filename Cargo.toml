@@ -17,6 +17,7 @@ name = "enl"
 actix-web = "4.8.0"
 serde = { version = "1.0.204", features = ["derive"] }
 tokio = { version = "1.39.2", features = ["full"] }
+config = "0.11"
 
 [dependencies.sqlx]
 version = "0.8.0"

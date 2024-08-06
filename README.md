@@ -4,7 +4,7 @@
 - "ZERO TO PRODUCTION IN RUST" book study project.
 
 ---
-## 56
+## 62
 
 ## Project Setup:
 
