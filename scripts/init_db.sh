@@ -72,3 +72,23 @@ docker ps -q -f name=$IMAGE_NAME
 
 export DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/@{DB_NAME}
 sqlx database create
+
+CREATE_SUBSCRIPTIONS_TABLE="create_subscriptions_table"
+MIGRATIONS="migrations"
+
+if [[ ! -d ${MIGRATIONS} ]]; then 
+	sqlx migrate add ${CREATE_SUBSCRIPTIONS_TABLE}
+
+	# Find files ending with the specific string
+	FILES=$(find "$MIGRATIONS" -type f -name "*${CREATE_SUBSCRIPTIONS_TABLE}.sql")
+
+	# Print the found files
+	for FILE in $FILES; {
+		printf "CREATE TABLE subscriptions(\n\tid uuid NOT NULL,\n\tPRIMARY KEY (id),\n\temail TEXT NOT NULL UNIQUE,\n\tname TEXT NOT NULL,\n\tsubscribed_at timestamp NOT NULL\n);\n" >> ${FILE}
+	
+	}
+fi
+
+sqlx migrate run
+
+# rm -rf "migrations"
