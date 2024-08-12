@@ -2,7 +2,7 @@ use chrono::Utc;
 use uuid::Uuid;
 
 use actix_web::{web, HttpResponse, Responder};
-use sqlx::PgConnection;
+use sqlx::PgPool;
 
 #[derive(serde::Deserialize)]
 pub struct FormData {
@@ -12,9 +12,9 @@ pub struct FormData {
 
 pub async fn subscriptions(
     form: web::Form<FormData>,
-    connection: web::Data<PgConnection>,
+    pool: web::Data<PgPool>,
 ) -> impl Responder {
-    sqlx::query!(
+    match sqlx::query!(
         r#"
         INSERT INTO subscriptions (id, email, name, subscribed_at)
         VALUES ($1, $2, $3, $4)
@@ -22,9 +22,14 @@ pub async fn subscriptions(
         Uuid::new_v4(),
         form.email,
         form.name,
-        Utc::now(),
+        Utc::now().naive_utc(),
     )
-    .execute(connection.get_ref())
-    .await;
-    HttpResponse::Ok().finish()
+    .execute(pool.get_ref())
+    .await {
+        Ok(_) => HttpResponse::Ok().finish(),
+        Err(e) => {
+            println!("Failed to execute query: {}", e);
+            HttpResponse::InternalServerError().finish()
+        }
+    }
 }
