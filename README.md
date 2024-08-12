@@ -4,7 +4,7 @@
 - "ZERO TO PRODUCTION IN RUST" book study project.
 
 ---
-## 62
+## 101: 4.5.12
 
 ## Project Setup:
 
@@ -120,6 +120,10 @@
 
 ```bash
 curl --request POST --data 'name=le%20guin&email=ursula_le_guin%40gmail.com' 127.0.0.1:8000/subscriptions --verbose
+
+TEST_LOG=true cargo test health_check_works | bunyan
+
+RUST_LOG=trace cargo watch -x check -x test -x run
 ```
 
 #### Choose Web Framework:
