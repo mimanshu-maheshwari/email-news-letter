@@ -45,6 +45,7 @@
   ```console
   cargo install cargo-tarpaulin
   cargo tarpaulin --ignore-tests
+	cargo test -- --no-capture
   ```
 
 - Linting:
@@ -69,6 +70,15 @@
   cargo install cargo-audit
   cargo audit
   ```
+- Unused dependencies: 
+	```console
+	cargo install cargo-udeps
+	cargo install cargo-udeps --locked
+	cargo +nightly udeps
+	cargo +nightly udeps --all-targets
+	```
+	requries nightly compiler 
+
 
 - Use ready to go CI Pipelines:
   - [GitHub Actions](https://gist.github.com/LukeMathWalker/5ae1107432ce283310c3e601fac915f3)
@@ -107,6 +117,10 @@
 
 - We will work in iterations: each iterations takes a fixed amount of time and gives us a slightly better version of the product, improving the experience of our users.
 - We are iterating on product features, not engineerng quality: the code produced in each iteration will be tested and properly documented even if it only delivers a tiny, fully functional feature.
+
+```bash
+curl --request POST --data 'name=le%20guin&email=ursula_le_guin%40gmail.com' 127.0.0.1:8000/subscriptions --verbose
+```
 
 #### Choose Web Framework:
 

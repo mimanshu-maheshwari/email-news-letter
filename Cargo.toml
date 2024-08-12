@@ -14,17 +14,33 @@ path = "src/main.rs"
 name = "enl"
 
 [dependencies]
+# async 
 actix-web = "4.8.0"
-serde = { version = "1.0.204", features = ["derive"] }
 tokio = { version = "1.39.2", features = ["full"] }
+
+# serde
+serde = { version = "1.0.204", features = ["derive"] }
+
+# misc
 config = "0.14.0"
 uuid = { version = "1.10.0", features = ["v4"]}
 chrono = "0.4.38"
 
+# logging 
+# log = "0.4.22"
+# env_logger = "0.11.5"
+tracing = { version = "0.1.40", features = ["log"] }
+tracing-subscriber = { version = "0.3.18", features = ["registry", "env-filter"] }
+tracing-bunyan-formatter = "0.3.9"
+tracing-log = "0.2.0"
+
+# sql/db
 [dependencies.sqlx]
 version = "0.8.0"
 default-features = false 
 features = [ "runtime-tokio-rustls", "macros", "postgres", "uuid", "chrono", "migrate"]
 
 [dev-dependencies]
+# test:http
 reqwest = "0.12.5"
+once_cell = "1"
