@@ -124,6 +124,14 @@ curl --request POST --data 'name=le%20guin&email=ursula_le_guin%40gmail.com' 127
 TEST_LOG=true cargo test health_check_works | bunyan
 
 RUST_LOG=trace cargo watch -x check -x test -x run
+
+docker build --tag enl --file Dockerfile .
+
+# It must be invoked as a cargo subcommand
+# all options after `--` are passed to cargo itself
+# We need to point it at our library since it contains 
+# all our SQL queries
+cargo sqlx prepare -- --lib 
 ```
 
 #### Choose Web Framework:
@@ -143,5 +151,6 @@ RUST_LOG=trace cargo watch -x check -x test -x run
 
 ## References:
 
+- https://github.com/LukeMathWalker/zero-to-production
 - https://trstringer.com/postgresql-neovim
 - https://github.com/guysherman/pg.nvim
