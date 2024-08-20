@@ -4,7 +4,8 @@
 - "ZERO TO PRODUCTION IN RUST" book study project.
 
 ---
-## 110: 5.3.4
+
+## 115: 5.3.4
 
 ## Project Setup:
 
@@ -45,7 +46,7 @@
   ```console
   cargo install cargo-tarpaulin
   cargo tarpaulin --ignore-tests
-	cargo test -- --no-capture
+  cargo test -- --no-capture
   ```
 
 - Linting:
@@ -70,15 +71,17 @@
   cargo install cargo-audit
   cargo audit
   ```
-- Unused dependencies: 
-	```console
-	cargo install cargo-udeps
-	cargo install cargo-udeps --locked
-	cargo +nightly udeps
-	cargo +nightly udeps --all-targets
-	```
-	requries nightly compiler 
 
+- Unused dependencies:
+
+  ```console
+  cargo install cargo-udeps
+  cargo install cargo-udeps --locked
+  cargo +nightly udeps
+  cargo +nightly udeps --all-targets
+  ```
+
+  requries nightly compiler
 
 - Use ready to go CI Pipelines:
   - [GitHub Actions](https://gist.github.com/LukeMathWalker/5ae1107432ce283310c3e601fac915f3)
@@ -129,9 +132,9 @@ docker build --tag enl --file Dockerfile .
 
 # It must be invoked as a cargo subcommand
 # all options after `--` are passed to cargo itself
-# We need to point it at our library since it contains 
+# We need to point it at our library since it contains
 # all our SQL queries
-cargo sqlx prepare -- --lib 
+cargo sqlx prepare -- --lib
 ```
 
 #### Choose Web Framework:
@@ -144,8 +147,9 @@ cargo sqlx prepare -- --lib
 
 ### Table driven test | Parameterized test
 
-### Database: 
-* PostgreSQL: postgres | postgres
+### Database:
+
+- PostgreSQL: postgres | postgres
 
 ---
 

@@ -19,3 +19,4 @@ async fn main() -> std::io::Result<()> {
     let listener = TcpListener::bind(address)?;
     startup::run(listener, connection_pool)?.await
 }
+
