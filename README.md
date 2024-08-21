@@ -138,6 +138,7 @@ cargo sqlx prepare -- --lib
 
 docker run enl 
 docker run -p 8000:8000 enl
+docker run -p 8000:8000 enl --network=host
 ```
 
 #### Choose Web Framework:
