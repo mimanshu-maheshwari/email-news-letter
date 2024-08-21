@@ -8,7 +8,7 @@ RUN apt update && apt install lld clang -y
 COPY . . 
 
 # sqlx is offline by default
-# RUN SQLX_OFFLINE true
+ENV SQLX_OFFLINE true
 
 RUN cargo build --release 
 
