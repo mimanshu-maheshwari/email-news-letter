@@ -135,6 +135,9 @@ docker build --tag enl --file Dockerfile .
 # We need to point it at our library since it contains
 # all our SQL queries
 cargo sqlx prepare -- --lib
+
+docker run enl 
+docker run -p 8000:8000 enl
 ```
 
 #### Choose Web Framework:
