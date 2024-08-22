@@ -136,7 +136,7 @@ docker build --tag enl --file Dockerfile .
 # all our SQL queries
 cargo sqlx prepare -- --lib
 
-docker run enl 
+docker run enl
 docker run -p 8000:8000 enl
 docker run -p 8000:8000 enl --network=host
 ```
@@ -154,6 +154,13 @@ docker run -p 8000:8000 enl --network=host
 ### Database:
 
 - PostgreSQL: postgres | postgres
+
+---
+
+## Issues to resolve:
+
+- lld issue for linking
+- github workflow setup
 
 ---
 
