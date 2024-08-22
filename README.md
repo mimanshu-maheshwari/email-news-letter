@@ -72,6 +72,12 @@
   cargo audit
   ```
 
+- Cache dependencies: 
+	`cargo chef`
+	```console 
+	cargo install cargo-chef --locked
+	```
+
 - Unused dependencies:
 
   ```console
@@ -161,6 +167,7 @@ docker run -p 8000:8000 enl --network=host
 
 - lld issue for linking
 - github workflow setup
+- reduce docker image size using debian or alpine
 
 ---
 

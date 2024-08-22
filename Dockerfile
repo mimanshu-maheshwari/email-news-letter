@@ -1,15 +1,26 @@
-# Builder Stage
-FROM rust:1.77.0 AS builder
+FROM lukemathwalker/cargo-chef:latest-rust-1.80.0 AS chef 
 WORKDIR /app 
 RUN apt update && apt install lld clang -y 
-COPY . . 
+FROM chef AS planner 
+COPY . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+FROM chef AS builder
+COPY --from=planner /app/recipe.json recipe.json
+RUN cargo chef cook --release --recipe-path recipe.json
+COPY . .
+# Builder Stage
+# FROM rust:1.80.0 AS builder
+# WORKDIR /app 
+# RUN apt update && apt install lld clang -y 
+# COPY . . 
 # sqlx is offline by default
 ENV SQLX_OFFLINE=true
 ENV LLM_LS_TARGET=x86_64-unknown-linux-musl
-RUN cargo build --release 
+RUN cargo build --release --bin enl
 
 # Runtime Stage
-FROM rust:1.77.0-slim AS runtime
+FROM rust:1.80.0-slim AS runtime
 # FROM debian:bullseye-slim AS runtime
 WORKDIR /app 
 # RUN  apt-get update -y \
