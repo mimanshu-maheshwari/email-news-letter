@@ -168,6 +168,7 @@ docker run -p 8000:8000 enl --network=host
 - lld issue for linking
 - github workflow setup
 - reduce docker image size using debian or alpine
+- deploy application
 
 ---
 
