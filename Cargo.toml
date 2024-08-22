@@ -20,6 +20,7 @@ tokio = { version = "1.39.2", features = ["full"] }
 
 # serde
 serde = { version = "1.0.204", features = ["derive"] }
+serde-aux = "4.5.0"
 
 # misc
 config = "0.14.0"

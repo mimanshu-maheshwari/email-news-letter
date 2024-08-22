@@ -7,8 +7,6 @@
 // `cargo expand --test health_check` (<- name of the test file)
 
 use once_cell::sync::Lazy;
-use secrecy::ExposeSecret;
-
 use std::net::TcpListener;
 
 use enl::{
@@ -62,15 +60,15 @@ async fn spawn_app() -> TestApp {
 }
 
 pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
-    let mut connection = PgConnection::connect(&config.connection_string_without_db().expose_secret())
+    let mut connection = PgConnection::connect_with(&config.without_db())
         .await
         .expect("Failed to connect to Postgres.");
 
-    connection
-        .execute(format!(r#"CREATE DATABASE "{}";"#, config.database_name).as_str())
+    connection.execute(format!(r#"CREATE DATABASE "{}";"#, config.database_name).as_str())
         .await
         .expect("Failed to create database");
-    let connection_pool = PgPool::connect(&config.connection_string().expose_secret())
+
+    let connection_pool = PgPool::connect_with(config.with_db())
         .await
         .expect("Failed to connect to Postgres Pool.");
 
