@@ -8,13 +8,12 @@
 
 use once_cell::sync::Lazy;
 use std::net::TcpListener;
-
+use uuid::Uuid;
 use enl::{
     configuration::{get_configuration, DatabaseSettings},
     telemetry,
 };
 use sqlx::{Connection, Executor, PgConnection, PgPool};
-use uuid::Uuid;
 
 static TRACING: Lazy<()> = Lazy::new(|| {
     let default_filter_level = "info".to_string();
@@ -44,8 +43,9 @@ async fn spawn_app() -> TestApp {
     let port = listener.local_addr().unwrap().port();
     let address = format!("http://127.0.0.1:{}", port);
 
-    let mut configuration = get_configuration().expect("Failed to read configuration");
+     let mut configuration = get_configuration().expect("Failed to read configuration");
     configuration.database.database_name = Uuid::new_v4().to_string();
+
     let connection_pool = configure_database(&configuration.database).await;
 
     let server =
@@ -148,5 +148,31 @@ async fn subscribe_returns_400_when_data_is_missing() {
             "The API did not fail with 400 Bad Request when the payload was {}.",
             error_message
         );
+    }
+}
+
+#[tokio::test]
+async fn subscribe_returns_a_400_when_fields_are_present_but_empty() {
+    // Arrange
+    let app = spawn_app().await; 
+    let client = reqwest::Client::new(); 
+    let test_cases = vec![
+        ("name=&email=ursula_le_guin%40gmail.com", "empty name"),
+        ("name=Ursula&email=", "empty email"),
+        ("name=Ursula&email=definately-not-an-email", "invalid email"),
+    ];
+    for (body, description) in test_cases {
+        // Act 
+        let response = client.post(&format!("{}/subscriptions", &app.address))
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .body(body)
+            .send()
+            .await
+            .expect("Failed to execute request.");
+
+        assert_eq!(400, response.status().as_u16(), 
+            "The API did not return 400 Bad Request when the payload was {}.", description
+        );
+            
     }
 }
