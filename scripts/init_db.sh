@@ -30,7 +30,6 @@ CONTAINER_PORT=5432
 # 
 IMAGE_NAME="${POSTGRES_IMAGE_NAME:=db_newsletter_pg}"
 
-
 # Pull the latest PostgreSQL image
 echo "Pulling PostgreSQL image..."
 docker pull $POSTGRES_IMAGE
